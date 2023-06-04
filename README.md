@@ -3,8 +3,9 @@
 AIM:
     To implement socket programming date and time display from client to
 server using TCPSockets
-ALGORITHM:
 
+ALGORITHM:
+```
    Server:
    1. Create a server socket and bind it to port.
    2. Listen for new connection and when a connection arrives, accept it.
@@ -24,9 +25,9 @@ ALGORITHM:
    5. Close the input and output streams.
    6. Close the client socket.
    7. Stop.
-
+```
 PROGRAM:
-
+```
 CLIENT:
 
 import socket
@@ -49,7 +50,7 @@ s.connect(('localhost',8000))
 print(s.getsockname())
 print(s.recv(1024).decode())
 s.send("acknowledgement recived from the server".encode())
-
+```
 OUTPUT:
 CLIENT:
 ![c3](https://github.com/aparnabalasubrmanian/EX-3/assets/123351172/a86234fd-2f10-4737-af77-e7a2a3146442)

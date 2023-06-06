@@ -1,64 +1,51 @@
-# EX-3
-
-AIM:
-    To implement socket programming date and time display from client to
-server using TCPSockets
-
-ALGORITHM:
-```
-   Server:
-   1. Create a server socket and bind it to port.
-   2. Listen for new connection and when a connection arrives, accept it.
-   3. Send server‟s date and time to the client.
-   4. Read client‟s IP address sent by the client.
-   5. Display the client details.
-   6. Repeat steps 2-5 until the server is terminated.
-   7. Close all streams.
-   8. Close the server socket.
-   9. Stop.
-
-   Client:
-   1. Create a client socket and connect it to the server‟s port number.
-   2. Retrieve its own IP address using built-in function.
-   3. Send its address to the server.
-   4. Display the date & time sent by the server.
-   5. Close the input and output streams.
-   6. Close the client socket.
-   7. Stop.
-```
-PROGRAM:
-```
-CLIENT:
-
+IMPLEMENTATION OF SLIDING WINDOW PROTOCOL
+EXP: 3
+DATE:22-03-2023
+AIM :
+To write a python program to perform sliding window protocol
+ALGORITHM :
+1. Start the program.
+2. Get the frame size from the user
+3. To create the frame based on the user request.
+4. To send frames to server from the client side.
+5. If your frames reach the server it will send ACK signal to client otherwise it will sendNACK signal to client.
+6. Stop the program
+CLIENT PROGRAM :
 import socket
 s=socket.socket()
 s.bind(('localhost',8000))
 s.listen(5)
 c,addr=s.accept()
-address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"};
+size=int(input("Enter number of frames to send:"))
+l=list(range(size))
+s=int(input("Enter Window Size:"))
+st=0
+i=0
 while True:
-   ip=c.recv(1024).decode()
-   try:
-     c.send(address[ip].encode())
-   except KeyError:
-     c.send("Not Found".encode())
 
-SERVER:
+	while(i<len(l)):
+
+		st+=s
+		c.send(str(l[i:st]).encode())
+		ack=c.recv(1024).decode()
+		if ack:
+			print(ack)
+			i+=s
+SERVER PROGRAM :
 import socket
 s=socket.socket()
 s.connect(('localhost',8000))
-print(s.getsockname())
-print(s.recv(1024).decode())
-s.send("acknowledgement recived from the server".encode())
-```
-OUTPUT:
-CLIENT:
-![c3](https://github.com/aparnabalasubrmanian/EX-3/assets/123351172/a86234fd-2f10-4737-af77-e7a2a3146442)
+while True:
+	print(s.recv(1024).decode())
+	s.send("acknowledgement recieved from the server".encode())
+	
+SERVER OUTPUT :
 
-SERVER:
-![s3](https://github.com/aparnabalasubrmanian/EX-3/assets/123351172/c2c26ce6-58d1-4488-9581-94fc8a923075)
+![server2](https://github.com/ARUNKUMART9968/EX-3/assets/121215794/b1f3d9fd-8438-48cc-bca4-7bb4014e6e14)
 
+CLIENT OUTPUT :
 
-RESULT:
-Thus, the program to implement socket programming date and time display from client to
-server using TCP Sockets was successfully executed
+![2output](https://github.com/ARUNKUMART9968/EX-3/assets/121215794/a3cca31b-f0e9-4c32-8704-22838fade788)
+
+RESULT :
+Thus, python program to perform stop and wait protocol was successfully executed.
